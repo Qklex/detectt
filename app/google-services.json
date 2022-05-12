@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "198484631168",
+    "project_id": "detector-5a2df",
+    "storage_bucket": "detector-5a2df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198484631168:android:86ddb4878402cdf3651065",
+        "android_client_info": {
+          "package_name": "com.demo.document2pdf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198484631168-4ge0k8hf37rbkev5ij06gql559l1o2vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX2AjPZv37l4C9fiQI4eyx9PYN23FQvCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198484631168-4ge0k8hf37rbkev5ij06gql559l1o2vt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

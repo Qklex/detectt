@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Умные заметки</string>
+    <string name="title_activity_main">Заметки с изображениями</string>
+    <string name="note_modified_date">Последние изменения:</string>
+    <string name="note_title">Заголовок</string>
+    <string name="no_notes_found">Нет сохранённых заметок, нажмите + и добавьте заметку </string>
+    <string name="note_updated">Заметка обновлена</string>
+    <string name="note_deleted">Заметка удалена</string>
+    <string name="bitmap_null_msg">Что-то пошло не так</string>
+    <string name="no_text_in_image_msg">Не удалось распознать текст по изображению</string>
+    <string name="information">Ваши сохранённые заметки будут отобржатся тут</string>
+</resources>
