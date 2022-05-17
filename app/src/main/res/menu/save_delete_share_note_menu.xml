@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
-    android:id="@+id/menu_update_saved"
-    android:title="Save"
-    android:icon="@drawable/tick"
-    app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_update_saved"
+        android:title="Save"
+        android:icon="@drawable/tick"
+        app:showAsAction="always"/>
 
-<item
-    android:id="@+id/menu_delete_saved"
-    android:title="Delete"
-    android:icon="@drawable/delete"
-    app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_delete_saved"
+        android:title="Delete"
+        android:icon="@drawable/delete"
+        app:showAsAction="always"/>
 
-<item
-    android:id="@+id/share_saved"
-    android:title="Share Note"
-    android:icon="@drawable/share"
-    app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/share_saved"
+        android:title="Share Note"
+        android:icon="@drawable/share"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/capture"
+        android:title="Delete"
+        android:icon="@drawable/photos"
+        app:showAsAction="always"/>
+
+
 </menu>

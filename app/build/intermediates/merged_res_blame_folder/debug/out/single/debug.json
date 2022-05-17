@@ -12,12 +12,12 @@
         "source": "D:\\sddsd\\Detector\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "D:\\sddsd\\Detector\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "D:\\sddsd\\Detector\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "D:\\sddsd\\Detector\\app\\build\\intermediates\\merged_res\\debug\\drawable_pen.png.flat",
         "source": "D:\\sddsd\\Detector\\app\\src\\main\\res\\drawable\\pen.png"
+    },
+    {
+        "merged": "D:\\sddsd\\Detector\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\sddsd\\Detector\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
         "merged": "D:\\sddsd\\Detector\\app\\build\\intermediates\\merged_res\\debug\\layout_activity_main.xml.flat",

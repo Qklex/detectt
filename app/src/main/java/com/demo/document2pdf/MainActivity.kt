@@ -1,11 +1,11 @@
 package com.demo.document2pdf
 
+import android.R.attr
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.demo.document2pdf.Room.NoteModel
@@ -24,19 +25,23 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.text.FirebaseVisionText
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.coroutines.InternalCoroutinesApi
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.net.Uri as Uri1
 
 
-class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
+open class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
 
     private lateinit var currentPhotoPath: String
     lateinit var notesRecycler : RecyclerView
     private val IMAGE_CAPTURE_REQUEST: Int = 11
     private val CHOOSE_IMAGE_FROM_GALLERY: Int =  12
+
     private lateinit var notesList : List<NoteModel>
     private lateinit var progressDialog : ProgressDialog
     private lateinit var fabAddNew: FloatingActionButton
@@ -45,6 +50,7 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
     private lateinit var fabCamera: FloatingActionButton
     private var isFabVisible : Boolean = false
     lateinit var db : NotesDatabase
+
     @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,18 +62,20 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
         fabGallery = findViewById(R.id.fab_gallery)
         fabWrite = findViewById(R.id.fab_write_new)
 
+
         fabCamera.setOnClickListener {
             openCamera(it)
         }
         fabGallery.setOnClickListener{
             openGallery(it)
+
         }
         fabWrite.setOnClickListener{
             goToAddNewNoteScreen("")
         }
 
         fabAddNew = findViewById(R.id.fab_add_new)
-        fabAddNew.setOnClickListener{
+        fabAddNew.setOnClickListener {
             showHideFab()
         }
     }
@@ -111,44 +119,52 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
                     e.printStackTrace()
                     null
                 }
-
                 photoFile?.also {
-                    val photoUri : Uri = FileProvider.getUriForFile(this,"com.demo.document2pdf",it)
+                    val photoUri : Uri1 = FileProvider.getUriForFile(this,"com.demo.document2pdf",it)
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                     startActivityForResult(intent,IMAGE_CAPTURE_REQUEST)
                 }
             }
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-            var bitmap : Bitmap? = null
-            if (requestCode == IMAGE_CAPTURE_REQUEST && resultCode == Activity.RESULT_OK) {
-                bitmap = BitmapFactory.decodeFile(currentPhotoPath)
-            }
 
-            else if (requestCode == CHOOSE_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK){
-                bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver,
-                    data?.data
-                );
-            }
-            try{
-                if (bitmap != null)
-                {
-                    runTextRecognition(bitmap)
-                }
-                else{
-                    Toast.makeText(this,getString(R.string.bitmap_null_msg),Toast.LENGTH_SHORT).show()
-                }
-            }catch (ex: IllegalStateException){
-                Toast.makeText(this,getString(R.string.no_text_in_image_msg),Toast.LENGTH_SHORT).show()
-            }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        var bitmap: Bitmap? = null
+        if (requestCode == IMAGE_CAPTURE_REQUEST && resultCode == Activity.RESULT_OK) {
+            bitmap = BitmapFactory.decodeFile(currentPhotoPath)
+        } else if (requestCode == CHOOSE_IMAGE_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            bitmap = MediaStore.Images.Media.getBitmap(
+                this.contentResolver,
+                data?.data
+            );
+
         }
+        try {
+            if (bitmap != null) {
+                runTextRecognition(bitmap)
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.bitmap_null_msg),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        } catch (ex: IllegalStateException) {
+            Toast.makeText(
+                this,
+                getString(R.string.no_text_in_image_msg),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
     @Throws(IOException::class)
     private fun createImageFile() : File {
         val timestamp : String  = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val location : File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("Image_${timestamp}_",".jpg",location).apply { currentPhotoPath = absolutePath }
+
     }
 
     private fun runTextRecognition(bitmap : Bitmap){
@@ -176,7 +192,6 @@ class MainActivity : AppCompatActivity(),NoteListAdapter.ItemClicked {
             resultText = resultText + block.text +"\n"
         }
         progressDialog.dismiss()
-//
 
         goToAddNewNoteScreen(resultText)
     }

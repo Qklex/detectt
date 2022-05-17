@@ -13,6 +13,7 @@ interface NotesDao {
 
     @Update
     fun updateNote(note: NoteModel)
+    
 
     @Query("SELECT * from notes_table")
     fun getMostRecentModifiedNote() : List<NoteModel>
